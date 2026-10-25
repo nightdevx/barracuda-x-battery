@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="tr" class="booting" data-theme="default">
+<head>
+<meta charset="utf-8">
+<title>Barracuda X</title>
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="theme-razer.css">
+</head>
+<body>
+<div class="backdrop"></div>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark"><i data-icon="headphones"></i></div>
+      <div><div class="brand-name">Barracuda X</div><div class="brand-sub">Pil ve kulaklık</div></div>
+    </div>
+
+    <div class="mini">
+      <svg viewBox="0 0 46 46"><circle class="track" cx="23" cy="23" r="19"/><circle class="fill" id="mini-fill" cx="23" cy="23" r="19"/></svg>
+      <div><div class="mini-pct num" id="mini-pct">--</div><div class="mini-state" id="mini-state">Okunuyor</div></div>
+    </div>
+
+    <nav class="nav" id="nav">
+      <div class="nav-indicator" id="nav-indicator"></div>
+      <button data-page="overview"><i data-icon="layout-dashboard"></i>Genel bakış</button>
+      <button data-page="history"><i data-icon="history"></i>Geçmiş</button>
+      <button data-page="cycles"><i data-icon="repeat"></i>Şarj döngüleri</button>
+      <button data-page="usage"><i data-icon="chart-column"></i>Kullanım</button>
+      <button data-page="week"><i data-icon="calendar-days"></i>Haftalık özet</button>
+      <button data-page="device"><i data-icon="sliders-horizontal"></i>Cihaz</button>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="theme-row">Tema<div class="segmented small" id="seg-theme"></div></div>
+      <label class="toggle"><input type="checkbox" id="pref-top"><span class="track"></span>Her zaman üstte</label>
+      <label class="toggle"><input type="checkbox" id="pref-startup"><span class="track"></span>Windows ile başlat</label>
+      <div class="sidebar-note" id="checked">&nbsp;</div>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <!-- Genel bakış -->
+    <section class="page" id="page-overview">
+      <header class="page-head">
+        <div><h1>Genel bakış</h1><p>Kulaklığın şu anki durumu ve son şarjdan beri olanlar</p></div>
+        <button class="btn" id="btn-refresh"><i data-icon="refresh-cw"></i>Şimdi oku</button>
+      </header>
+      <div class="card hero rise" id="hero">
+          <div class="ring-wrap">
+            <svg class="ring" viewBox="0 0 210 210">
+              <defs>
+                <linearGradient id="g-green" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6ee7b7"/><stop offset="1" stop-color="#10b981"/></linearGradient>
+                <linearGradient id="g-blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#818cf8"/></linearGradient>
+                <linearGradient id="g-red" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fb923c"/><stop offset="1" stop-color="#f87171"/></linearGradient>
+                <linearGradient id="g-gray" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5c6476"/><stop offset="1" stop-color="#3a4150"/></linearGradient>
+                <mask id="fill-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="210" height="210">
+                  <circle class="fill" id="mask-fill" cx="105" cy="105" r="91" stroke="#fff"/>
+                </mask>
+              </defs>
+              <circle class="track" cx="105" cy="105" r="91"/>
+              <circle class="fill" id="ring-fill" cx="105" cy="105" r="91" stroke="url(#g-gray)"/>
+              <g mask="url(#fill-mask)"><circle class="shine" cx="105" cy="105" r="91" stroke-dasharray="46 600"/></g>
+              <circle class="ticks" cx="105" cy="105" r="91"/>
+            </svg>
+            <div class="ring-center">
+              <div class="ring-pct"><small>%</small><span id="ring-pct">--</span></div>
+              <div class="ring-label" id="ring-label">Okunuyor</div>
+            </div>
+          </div>
+          <div class="hero-info">
+            <span class="pill" id="hero-pill">Bekleniyor</span>
+            <div class="hero-eta num" id="hero-eta">—</div>
+            <div class="hero-eta-sub" id="hero-eta-sub">&nbsp;</div>
+          </div>
+          <div class="facts hero-facts">
+            <div class="fact"><span>Son şarjdan beri kullanım</span><b id="f-used">—</b></div>
+            <div class="fact"><span>Pil düşüşü</span><b id="f-drop">—</b></div>
+            <div class="fact"><span>Şarjdan çıkış</span><b id="f-unplug">—</b></div>
+          </div>
+      </div>
+      <div class="stats rise" id="stats-overview"></div>
+      <div class="card rise">
+        <div class="card-head"><h3>Son 24 saat</h3><div class="legend" data-legend></div></div>
+        <div class="chart-box h-220"><canvas id="c-overview"></canvas></div>
+      </div>
+    </section>
+
+    <!-- Geçmiş -->
+    <section class="page" id="page-history">
+      <header class="page-head">
+        <div><h1>Geçmiş</h1><p>Pil seviyesinin zaman içindeki değişimi</p></div>
+        <div class="segmented" id="seg-range"></div>
+      </header>
+      <div class="stats rise" id="stats-history"></div>
+      <div class="card rise">
+        <div class="card-head"><h3>Pil seviyesi</h3><div class="legend" data-legend></div></div>
+        <div class="chart-box h-260"><canvas id="c-history"></canvas></div>
+      </div>
+      <div class="card rise">
+        <div class="card-head"><h3>Oturumlar</h3><span class="muted" id="sessions-count"></span></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Tür</th><th>Başlangıç</th><th>Bitiş</th><th>Süre</th><th>Seviye</th><th>Hız</th></tr></thead>
+          <tbody id="t-sessions"></tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <!-- Şarj döngüleri -->
+    <section class="page" id="page-cycles">
+      <header class="page-head">
+        <div><h1>Şarj döngüleri</h1><p>Şarjdan çıkarıldığı andan tekrar şarja takılana kadar ne kadar kullanıldı, pil ne kadar azaldı</p></div>
+      </header>
+      <div class="card cycle rise">
+        <div>
+          <h2 id="cy-title">Son şarjdan beri</h2>
+          <div class="big num" id="cy-used">—</div>
+          <div class="big-sub" id="cy-used-sub">kullanım</div>
+          <div class="drain-bar"><div class="used" id="cy-bar-used"></div><div class="left" id="cy-bar-left"></div></div>
+          <div class="drain-scale"><span id="cy-from">—</span><span id="cy-to">—</span></div>
+        </div>
+        <div class="facts">
+          <div class="fact"><span>Pil düşüşü</span><b id="cy-drop">—</b></div>
+          <div class="fact"><span>Geçen süre</span><b id="cy-elapsed">—</b></div>
+          <div class="fact"><span>Tüketim</span><b id="cy-rate">—</b></div>
+          <div class="fact"><span>Tam şarj tahmini</span><b id="cy-full">—</b></div>
+        </div>
+      </div>
+      <div class="card rise">
+        <div class="card-head"><h3>Dönem başına kullanım</h3><span class="muted">son 12 dönem</span></div>
+        <div class="chart-box h-220"><canvas id="c-cycles"></canvas></div>
+      </div>
+      <div class="card rise">
+        <div class="card-head"><h3>Dönemler</h3><span class="muted" id="cycles-count"></span></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Şarjdan çıkış</th><th>Tekrar şarj</th><th>Kullanım</th><th>Geçen süre</th><th>Seviye</th><th>Düşüş</th><th>Tüketim</th></tr></thead>
+          <tbody id="t-cycles"></tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <!-- Kullanım -->
+    <section class="page" id="page-usage">
+      <header class="page-head">
+        <div><h1>Kullanım</h1><p>Günlük kullanım süresi ve pil sağlığı</p></div>
+      </header>
+      <div class="stats rise" id="stats-usage"></div>
+      <div class="card rise">
+        <div class="card-head"><h3>Günlük kullanım</h3><div class="legend" data-legend></div></div>
+        <div class="chart-box h-220"><canvas id="c-daily"></canvas></div>
+      </div>
+      <div class="card rise">
+        <div class="card-head"><h3>Tam şarjla kullanım süresi</h3><span class="muted">haftalık</span></div>
+        <div class="chart-box h-180"><canvas id="c-weekly"></canvas></div>
+      </div>
+      <p class="note rise">Pil sağlığı: son haftanın tam şarj süresinin kayıtlardaki ilk haftaya oranı. Kullanım şekline göre değişir; anlamlı olması için birkaç haftalık veri gerekir.</p>
+    </section>
+
+    <!-- Haftalık özet -->
+    <section class="page" id="page-week">
+      <header class="page-head">
+        <div><h1>Haftalık özet</h1><p>Bir haftanın kullanımı, geçen haftayla karşılaştırmalı</p></div>
+        <div class="week-nav">
+          <button class="btn icon-only" id="week-prev"><i data-icon="chevron-left"></i></button>
+          <div class="label" id="week-label">—</div>
+          <button class="btn icon-only" id="week-next"><i data-icon="chevron-right"></i></button>
+        </div>
+      </header>
+      <div class="stats rise" id="stats-week"></div>
+      <div class="stats rise" id="stats-week2"></div>
+      <div class="split rise">
+        <div class="card">
+          <div class="card-head"><h3>Günlere göre</h3><div class="legend" data-legend></div></div>
+          <div class="chart-box h-220"><canvas id="c-week-days"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>Saatlere göre</h3><span class="muted">haftanın toplamı</span></div>
+          <div class="chart-box h-220"><canvas id="c-week-hours"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cihaz -->
+    <section class="page" id="page-device">
+      <header class="page-head">
+        <div><h1>Cihaz</h1><p>Kulaklığın bilgileri ve ayarları; değişiklikler kulaklığa kaydedilir</p></div>
+        <button class="btn" id="btn-reread"><i data-icon="refresh-cw"></i>Kulaklıktan oku</button>
+      </header>
+      <div id="device">
+        <div class="stats three rise" id="stats-device"></div>
+        <div class="card rise">
+          <div class="card-head"><h3>Ekolayzer</h3><div class="segmented" id="seg-eq"></div></div>
+          <div class="eq">
+            <div class="bands" id="bands">
+              <div class="eq-actions" id="eq-actions">
+                <button class="btn primary" id="eq-apply"><i data-icon="check"></i>Özel EQ'yu uygula</button>
+                <button class="btn" id="eq-flat">Düzle</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card rise">
+          <div class="setting-row">
+            <div><h4>Rahatsız etme</h4><p>Kulaklığın rahatsız etme modu</p></div>
+            <label class="toggle" id="dnd-label"><input type="checkbox" id="dnd"><span class="track"></span></label>
+          </div>
+          <div class="setting-row">
+            <div><h4>Otomatik kapanma</h4><p>Kullanılmadığında bu kadar süre sonra kapanır</p></div>
+            <div class="segmented" id="seg-standby"></div>
+          </div>
+        </div>
+        <div class="device-foot">
+          <span id="device-status">&nbsp;</span>
+          <button class="btn" id="btn-diagnose" style="margin-left:auto"><i data-icon="info"></i>Tanılama raporu</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="toasts" id="toasts"></div>
+<script src="vendor/chart.umd.min.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

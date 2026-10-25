@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.13", "3.14"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      # No headset on the runner: both suites replay captured frames and synthetic logs.
+      - run: python barracuda.py --selftest
+      - run: python history.py --selftest
+
+  build:
+    runs-on: windows-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+
+      - run: pip install -r requirements-dev.txt
+
+      - name: Build app folder
+        run: >-
+          python -m PyInstaller --noconfirm --onedir --windowed --name BarracudaBattery
+          --icon "${{ github.workspace }}\assets\icon.ico" --add-data "${{ github.workspace }}\ui;ui"
+          --exclude-module numpy --exclude-module tkinter
+          --distpath build/app --workpath build/tmp --specpath build app.pyw
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: barracuda-battery-unpackaged
+          path: build/app/BarracudaBattery
+          retention-days: 7

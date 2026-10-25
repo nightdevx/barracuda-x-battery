@@ -1,0 +1,185 @@
+/* "Razer tarzı" theme (draft): black, neon green, chamfered panels, condensed uppercase type.
+   Everything is scoped to html[data-theme=razer], so the default theme in app.css stays as it is.
+   Only the visual language is borrowed; no Razer logo or name appears in the app. */
+html[data-theme=razer] {
+  --bg: #050505;
+  --panel: #08090a;
+  --card: #0d0e0f;
+  --card-hi: #131415;
+  --border: #1e1f21;
+  --border-hi: #2d2f31;
+  --text: #f4f4f4;
+  --muted: #8c8f93;
+  --faint: #55585c;
+  --green: #44d62c;
+  --green-2: #2a9e18;
+  --blue: #1fd8f0;
+  --indigo: #44d62c;
+  --violet: #d6d6d6;
+  --red: #ff3c3c;
+  --orange: #ff8a3c;
+  --amber: #ffd23c;
+  --radius: 0px;
+  --radius-sm: 0px;
+  --font: 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Bahnschrift', 'Segoe UI', sans-serif;
+  --cut: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  --cut-sm: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px);
+  /* read by app.js for the charts */
+  --c-battery: #44d62c;
+  --c-charging: #1fd8f0;
+  --c-low: #ff3c3c;
+  --c-alt: #44d62c;
+  --c-eq-up: #44d62c;
+  --c-eq-down: #d6d6d6;
+  --c-grid: rgba(255, 255, 255, 0.045);
+  --c-card: #0d0e0f;
+  --c-tooltip: rgba(5, 5, 5, 0.96);
+  --c-tooltip-border: rgba(68, 214, 44, 0.55);
+  --c-tooltip-radius: 0;
+  --c-bar-radius: 0;
+  --c-glow: 1;
+}
+
+html[data-theme=razer] body { background: var(--bg); }
+html[data-theme=razer] .backdrop {
+  background:
+    radial-gradient(760px 420px at 10% -6%, rgba(68, 214, 44, 0.14), transparent 65%),
+    radial-gradient(620px 520px at 104% 104%, rgba(68, 214, 44, 0.07), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath fill='none' stroke='%2344d62c' stroke-opacity='0.06' d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM14 0v9.25M14 40v9'/%3E%3C/svg%3E");
+}
+html[data-theme=razer] .main::-webkit-scrollbar-thumb,
+html[data-theme=razer] .table-wrap::-webkit-scrollbar-thumb { background-color: rgba(68, 214, 44, 0.25); border-radius: 0; }
+
+/* ---- sidebar ---- */
+html[data-theme=razer] .sidebar { position: relative; background: linear-gradient(180deg, #0a0b0c, #060707); border-right: 1px solid #17181a; backdrop-filter: none; }
+html[data-theme=razer] .sidebar::after { content: ''; position: absolute; top: 0; right: -1px; width: 1px; height: 200px; background: linear-gradient(var(--green), transparent); }
+html[data-theme=razer] .brand-mark { border-radius: 0; clip-path: var(--cut-sm); background: var(--green); color: #050505; box-shadow: none; }
+html[data-theme=razer] .brand-name { font: 700 15px var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; }
+html[data-theme=razer] .brand-sub { color: var(--green); text-transform: uppercase; letter-spacing: 0.2em; font-size: 10px; }
+html[data-theme=razer] .mini { border: 0; border-radius: 0; clip-path: var(--cut-sm); background: #0e0f10; box-shadow: inset 0 0 0 1px var(--border); }
+html[data-theme=razer] .mini .track { stroke: #1b1c1e; }
+html[data-theme=razer] .mini .fill { stroke-linecap: butt; }
+html[data-theme=razer] .mini-pct { font-family: var(--font-display); font-weight: 600; }
+html[data-theme=razer] .mini-pct small { color: var(--green); }
+html[data-theme=razer] .mini-state { text-transform: uppercase; letter-spacing: 0.14em; font-size: 10.5px; }
+html[data-theme=razer] .nav button { height: 42px; border-radius: 0; font: 600 12.5px var(--font-display); text-transform: uppercase; letter-spacing: 0.14em; }
+html[data-theme=razer] .nav button:hover { background: rgba(68, 214, 44, 0.05); }
+html[data-theme=razer] .nav button.active svg { color: var(--green); }
+html[data-theme=razer] .nav-indicator { border: 0; border-radius: 0; background: linear-gradient(90deg, rgba(68, 214, 44, 0.2), rgba(68, 214, 44, 0)); }
+html[data-theme=razer] .nav-indicator::before { left: 0; top: 0; bottom: 0; width: 3px; border-radius: 0; background: var(--green); box-shadow: 0 0 14px var(--green); }
+html[data-theme=razer] .theme-row, html[data-theme=razer] .toggle { font: 600 11.5px var(--font-display); text-transform: uppercase; letter-spacing: 0.1em; }
+html[data-theme=razer] .sidebar-note { text-transform: uppercase; letter-spacing: 0.1em; font-size: 10.5px; }
+
+/* ---- headings ---- */
+html[data-theme=razer] .page-head h1 { font: 700 30px/1.1 var(--font-display); text-transform: uppercase; letter-spacing: 0.08em; }
+html[data-theme=razer] .page-head h1::after { content: ''; display: block; width: 56px; height: 3px; margin-top: 10px; background: var(--green); box-shadow: 0 0 12px rgba(68, 214, 44, 0.7); }
+html[data-theme=razer] .page-head p { margin-top: 10px; }
+html[data-theme=razer] .card-head h3 { display: flex; align-items: center; gap: 10px; font: 700 13px var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; }
+html[data-theme=razer] .card-head h3::before { content: ''; width: 7px; height: 7px; background: var(--green); transform: rotate(45deg); box-shadow: 0 0 8px var(--green); }
+html[data-theme=razer] .legend { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; }
+html[data-theme=razer] .legend i { border-radius: 0; }
+
+/* ---- panels: square, corner cut, green accent along the cut ---- */
+html[data-theme=razer] .card, html[data-theme=razer] .stat {
+  border: 0; border-radius: 0; clip-path: var(--cut);
+  background: linear-gradient(180deg, #101112, #0b0c0d);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+html[data-theme=razer] .card::after, html[data-theme=razer] .stat::after {
+  content: ''; position: absolute; top: 0; left: 0; width: 12px; height: 12px; pointer-events: none;
+  background: linear-gradient(135deg, transparent 44%, var(--green) 44%, var(--green) 56%, transparent 56%);
+}
+html[data-theme=razer] .stat:hover { transform: none; box-shadow: inset 0 0 0 1px rgba(68, 214, 44, 0.5), inset 0 0 24px rgba(68, 214, 44, 0.06); }
+html[data-theme=razer] .stat-top { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+html[data-theme=razer] .stat-top .badge { border-radius: 0; clip-path: var(--cut-sm); }
+html[data-theme=razer] .stat-value { font: 600 28px/1.15 var(--font-display); letter-spacing: 0.02em; }
+html[data-theme=razer] .stat-value.flash { animation-name: flash-green; }
+@keyframes flash-green {
+  from { color: var(--green); text-shadow: 0 0 12px rgba(68, 214, 44, 0.6); }
+  to { color: var(--text); text-shadow: none; }
+}
+html[data-theme=razer] .tone-green, html[data-theme=razer] .tone-violet { color: var(--green); background: rgba(68, 214, 44, 0.1); }
+html[data-theme=razer] .tone-blue { color: var(--blue); background: rgba(31, 216, 240, 0.1); }
+html[data-theme=razer] .tone-amber { color: var(--amber); background: rgba(255, 210, 60, 0.1); }
+html[data-theme=razer] .tone-red { color: var(--red); background: rgba(255, 60, 60, 0.12); }
+
+/* ---- controls ---- */
+html[data-theme=razer] .btn {
+  border: 0; border-radius: 0; clip-path: var(--cut-sm); background: #141516; box-shadow: inset 0 0 0 1px #2b2d2f;
+  font: 600 12px var(--font-display); text-transform: uppercase; letter-spacing: 0.12em;
+  transition: color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+html[data-theme=razer] .btn:hover { color: var(--green); background: rgba(68, 214, 44, 0.08); box-shadow: inset 0 0 0 1px var(--green); }
+html[data-theme=razer] .btn.primary { color: #050505; background: var(--green); box-shadow: none; }
+html[data-theme=razer] .btn.primary:hover { color: #050505; background: #62ec48; filter: none; }
+html[data-theme=razer] .segmented { padding: 0; gap: 2px; border: 0; border-radius: 0; background: transparent; box-shadow: inset 0 -1px 0 #242628; }
+html[data-theme=razer] .segmented button { height: 34px; border-radius: 0; font: 600 12px var(--font-display); text-transform: uppercase; letter-spacing: 0.12em; }
+html[data-theme=razer] .segmented.small button { height: 28px; }
+html[data-theme=razer] .segmented button.active { color: var(--green); }
+html[data-theme=razer] .segmented .thumb, html[data-theme=razer] .segmented.small .thumb {
+  top: auto; bottom: 0; height: 2px; border: 0; border-radius: 0; background: var(--green); box-shadow: 0 0 10px var(--green);
+}
+html[data-theme=razer] .toggle .track { border-radius: 0; background: #1c1d1f; clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px); }
+html[data-theme=razer] .toggle .track::after { border-radius: 0; background: #8c8f93; box-shadow: none; }
+html[data-theme=razer] .toggle input:checked + .track { background: rgba(68, 214, 44, 0.28); }
+html[data-theme=razer] .toggle input:checked + .track::after { background: var(--green); }
+html[data-theme=razer] .pill { border-radius: 0; clip-path: var(--cut-sm); font: 600 11.5px var(--font-display); text-transform: uppercase; letter-spacing: 0.14em; }
+html[data-theme=razer] .pill.green { background: rgba(68, 214, 44, 0.12); }
+html[data-theme=razer] .pill.blue { background: rgba(31, 216, 240, 0.12); }
+html[data-theme=razer] .pill.red { background: rgba(255, 60, 60, 0.14); }
+html[data-theme=razer] .toast { border: 0; border-radius: 0; clip-path: var(--cut-sm); background: #0d0e0f; box-shadow: inset 3px 0 0 var(--green), inset 0 0 0 1px #2b2d2f; }
+html[data-theme=razer] .toast.err { box-shadow: inset 3px 0 0 var(--red), inset 0 0 0 1px #2b2d2f; }
+
+/* ---- overview ---- */
+html[data-theme=razer] .hero { background: #0c0d0e; clip-path: polygon(22px 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%, 0 22px); }
+html[data-theme=razer] .hero::after { width: 22px; height: 22px; }
+html[data-theme=razer] .ring .track { stroke: #17181a; }
+html[data-theme=razer] .ring .fill { stroke-linecap: butt; }
+/* 40 notches in the hero's background color turn the ring into segments */
+html[data-theme=razer] .ring .ticks { display: inline; stroke: #0c0d0e; stroke-width: 16; stroke-dasharray: 2.6 11.694; }
+html[data-theme=razer] #g-green stop:first-child { stop-color: #7dff5f; }
+html[data-theme=razer] #g-green stop:last-child { stop-color: #2a9e18; }
+html[data-theme=razer] #g-blue stop:first-child { stop-color: #1fd8f0; }
+html[data-theme=razer] #g-blue stop:last-child { stop-color: #44d62c; }
+html[data-theme=razer] #g-red stop:first-child { stop-color: #ff8a3c; }
+html[data-theme=razer] #g-red stop:last-child { stop-color: #ff2d2d; }
+html[data-theme=razer] #g-gray stop:first-child { stop-color: #3d4043; }
+html[data-theme=razer] #g-gray stop:last-child { stop-color: #222426; }
+html[data-theme=razer] .ring-pct { font: 600 58px/1 var(--font-display); letter-spacing: 0; }
+html[data-theme=razer] .ring-pct small { color: var(--green); }
+html[data-theme=razer] .ring-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.16em; }
+html[data-theme=razer] .hero-eta { font: 700 38px/1.1 var(--font-display); letter-spacing: 0.02em; }
+html[data-theme=razer] .hero-eta-sub { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.12em; }
+html[data-theme=razer] .fact { border: 0; border-radius: 0; clip-path: var(--cut-sm); background: #121314; box-shadow: inset 2px 0 0 var(--green); }
+html[data-theme=razer] .fact span { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.12em; }
+html[data-theme=razer] .fact b { font: 600 16px var(--font-display); }
+
+/* ---- charge cycles ---- */
+html[data-theme=razer] .cycle h2 { color: var(--green); font: 700 13px var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; }
+html[data-theme=razer] .cycle .big { font: 700 44px/1.05 var(--font-display); }
+html[data-theme=razer] .drain-bar { height: 14px; border-radius: 0; background: #17181a; clip-path: var(--cut-sm); }
+html[data-theme=razer] .drain-bar .left { border-radius: 0; background: linear-gradient(90deg, #2a9e18, #44d62c); }
+html[data-theme=razer] .drain-bar .used { border-radius: 0; background: repeating-linear-gradient(135deg, rgba(255, 60, 60, 0.4) 0 6px, rgba(255, 60, 60, 0.12) 6px 12px); }
+html[data-theme=razer] .drain-scale { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* ---- week, tables, device ---- */
+html[data-theme=razer] .week-nav .label { font: 700 15px var(--font-display); text-transform: uppercase; letter-spacing: 0.1em; }
+html[data-theme=razer] .week-nav .label small { color: var(--green); letter-spacing: 0.14em; }
+html[data-theme=razer] th { background: #0d0e0f; color: var(--green); font: 600 11px var(--font-display); letter-spacing: 0.14em; }
+html[data-theme=razer] td { border-top-color: #18191b; }
+html[data-theme=razer] tbody tr:hover { background: rgba(68, 214, 44, 0.05); box-shadow: inset 2px 0 0 var(--green); }
+html[data-theme=razer] td .tag i { border-radius: 0; transform: rotate(45deg); }
+html[data-theme=razer] .bands { grid-template-columns: repeat(10, 1fr) 236px; }
+html[data-theme=razer] .eq-actions .btn { white-space: nowrap; }
+html[data-theme=razer] .band .val { font-family: var(--font-display); }
+html[data-theme=razer] .band .val.up { color: var(--green); }
+html[data-theme=razer] .band .val.down { color: var(--violet); }
+html[data-theme=razer] .band .hz { text-transform: uppercase; letter-spacing: 0.1em; }
+html[data-theme=razer] .band input[type=range] { width: 6px; border-radius: 0; }
+html[data-theme=razer] .band input[type=range]::-webkit-slider-thumb {
+  width: 22px; height: 10px; border-radius: 0; background: #f4f4f4;
+  box-shadow: 0 0 0 2px var(--green), 0 0 14px rgba(68, 214, 44, 0.55);
+}
+html[data-theme=razer] .setting-row h4 { font: 700 13px var(--font-display); text-transform: uppercase; letter-spacing: 0.14em; }
+html[data-theme=razer] .setting-row + .setting-row { border-top-color: #18191b; }
