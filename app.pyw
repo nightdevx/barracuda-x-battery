@@ -33,9 +33,8 @@ SHOW_EVENT = r'Local\BarracudaBattery.Show'        # set: the tray process opens
 REFRESH_EVENT = r'Local\BarracudaBattery.Refresh'  # set: the tray process reads the headset now
 WINDOW_EVENT = r'Local\BarracudaBattery.Window'    # set: the window process comes to the front
 NO_ANSWER = 'Kulaklık kapalı, kapsama dışında veya Bluetooth modunda'
-THEMES = ('default', 'razer')
 SETTINGS = {'eq_preset': hs.EQ_PRESET, 'custom_eq': hs.CUSTOM_EQ, 'dnd': hs.DND, 'standby': hs.STANDBY}
-GREEN, BLUE, RED = '#34d399', '#38bdf8', '#f87171'
+GREEN, BLUE, RED = '#44d62c', '#1fd8f0', '#ff3c3c'  # tray icon, as in the page
 
 _k32 = ctypes.WinDLL('kernel32', use_last_error=True)
 _k32.CreateEventW.restype = ctypes.c_void_p
@@ -392,14 +391,7 @@ class Api:
         return {'ok': bool(ok), 'error': None if ok else 'Kulaklık ayarı kabul etmedi' if ok is False else NO_ANSWER}
 
     def prefs(self):
-        theme = load_prefs().get('theme')
-        return {'startup': startup_enabled(), 'on_top': is_topmost(self._window),
-                'theme': theme if theme in THEMES else 'default'}
-
-    def set_theme(self, name):
-        if name in THEMES:
-            with open(prefs_path(), 'w', encoding='utf-8') as f:
-                json.dump({**load_prefs(), 'theme': name}, f)
+        return {'startup': startup_enabled(), 'on_top': is_topmost(self._window)}
 
     def set_startup(self, on):
         set_startup(bool(on))
@@ -439,7 +431,7 @@ def is_topmost(window):
 
 def style_window(window):
     """Dark title bar in the page's background color (Windows 11), and the saved "always on top"."""
-    for attribute, value in ((20, 1), (35, 0x00110D0B)):  # immersive dark mode; caption color #0b0d11 as BGR
+    for attribute, value in ((20, 1), (35, 0x00050505)):  # immersive dark mode; caption color #050505 as BGR
         v = ctypes.c_int(value)
         ctypes.windll.dwmapi.DwmSetWindowAttribute(hwnd(window), attribute, ctypes.byref(v), ctypes.sizeof(v))
     if load_prefs().get('on_top'):
@@ -454,7 +446,7 @@ def run_window():
         return
     api = Api()
     window = webview.create_window('Barracuda X', url=resource('ui', 'index.html'), js_api=api, width=1240,
-                                   height=840, min_size=(1080, 760), background_color='#0b0d11')
+                                   height=840, min_size=(1080, 760), background_color='#050505')
     api._window = window
     window.events.shown += lambda: style_window(window)
 

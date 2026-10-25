@@ -2,7 +2,7 @@
 ; Per-user install: no administrator rights, files under %LOCALAPPDATA%\Programs.
 
 #define AppName "Barracuda X Pil"
-#define AppVersion "1.1.0"
+#define AppVersion "1.2.0"
 #define AppExe "BarracudaBattery.exe"
 #define RunKey "Software\Microsoft\Windows\CurrentVersion\Run"
 

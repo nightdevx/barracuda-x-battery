@@ -52,7 +52,8 @@ full cycles, and a week-by-week page compared with the week before.
 **Headset settings.** EQ presets, a 10-band custom EQ, do not disturb and auto power-off. Every change is read back
 from the headset before it counts.
 
-**Two themes.** The default dark theme, and a Razer-style one: black, neon green, chamfered panels.
+**Razer-style look.** Black, neon green, chamfered panels, condensed uppercase type and a segmented battery ring,
+so it sits next to the rest of a Razer setup.
 
 </td>
 <td width="45%" valign="top">
@@ -70,10 +71,9 @@ from the headset before it counts.
 | <img src="docs/images/history.png" alt="History page"> | <img src="docs/images/usage.png" alt="Usage page"> | <img src="docs/images/week.png" alt="Weekly summary page"> |
 | Level over time, sessions, drain rate and time on battery. | Daily hours, full-charge life per week, battery health. | One week against the one before. |
 
-| Headset settings | Razer-style theme | |
-|---|---|---|
-| <img src="docs/images/device.png" alt="Device page"> | <img src="docs/images/razer-overview.png" alt="Overview in the Razer-style theme"> | <img src="docs/images/razer-device.png" alt="Device page in the Razer-style theme"> |
-| Firmware, receiver, EQ, do not disturb, standby. | Switch at the bottom of the sidebar; remembered. | |
+| Headset settings | |
+|---|---|
+| <img src="docs/images/device.png" alt="Device page"> | Firmware, receiver, EQ presets, a 10-band custom EQ, do not disturb and auto power-off. Each change is read back from the headset; one it does not take is put back on screen. |
 
 ## Install
 
@@ -137,8 +137,7 @@ barracuda.py       receiver framing, headset commands, event listener, diagnosti
 history.py         log, sessions, charge cycles, daily and weekly figures
 ui/
   index.html       pages
-  app.css          default theme and components
-  theme-razer.css  Razer-style theme
+  app.css          components and the Razer-style look
   app.js           data, charts (Chart.js), animations, settings
 installer/         Inno Setup script
 build.ps1          self-tests, PyInstaller (one folder), installer
@@ -147,7 +146,7 @@ build.ps1          self-tests, PyInstaller (one folder), installer
 User data, all in `%LOCALAPPDATA%\BarracudaBattery`:
 
 - `history.db` — one row per reading (time, percent, charging)
-- `prefs.json` — theme and "always on top"
+- `prefs.json` — "always on top"
 - `tanilama.txt` — the diagnostic report, when you make one
 
 ## Development

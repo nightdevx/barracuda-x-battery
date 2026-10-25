@@ -2,7 +2,7 @@
 // Page logic. Data comes from Python through window.pywebview.api (app.pyw Api); every value is computed there,
 // this file only formats and draws.
 
-const C = {};  // colors and fonts of the active theme, read from its CSS variables by loadTheme()
+const C = {};  // colors and fonts, read from the CSS variables in app.css by loadTheme()
 const DAYS = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'];
 const DAYS_SHORT = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
 const NO_ANSWER = 'Kulaklık kapalı, kapsama dışında veya Bluetooth modunda';
@@ -114,7 +114,7 @@ function loadTheme() {
   Object.assign(C, {
     green: v('--c-battery'), blue: v('--c-charging'), red: v('--c-low'), violet: v('--c-alt'), amber: v('--amber'),
     eqUp: v('--c-eq-up'), eqDown: v('--c-eq-down'), text: v('--text'), muted: v('--muted'), faint: v('--faint'),
-    grid: v('--c-grid'), card: v('--c-card'), font: v('--font'), bar: Number(v('--c-bar-radius')), glow: v('--c-glow') === '1',
+    grid: v('--c-grid'), card: v('--c-card'), font: v('--font'), bar: Number(v('--c-bar-radius')),
   });
   Chart.defaults.font.family = C.font;
   Chart.defaults.color = C.muted;
@@ -135,20 +135,6 @@ function placeNav() {
   const btn = document.querySelector(`#nav button[data-page="${page}"]`), ind = $('nav-indicator');
   ind.style.transform = `translateY(${btn.offsetTop}px)`;
   ind.style.height = `${btn.offsetHeight}px`;
-}
-
-async function setTheme(name) {
-  document.documentElement.dataset.theme = name;
-  setSegment('seg-theme', name);
-  loadTheme();
-  renderLegends();
-  for (const id in charts) { charts[id].destroy(); delete charts[id]; }  // rebuilt in the new colors below
-  meta.eq_bands.forEach((_, i) => setBand(i, Number($(`b-${i}`).value)));
-  if (state) { const s = state; state = null; renderState(s); }
-  requestAnimationFrame(() => { placeNav(); for (const id in segments) setSegment(id, segments[id]); });  // new fonts, new sizes
-  $('main').animate([{ opacity: 0.15 }, { opacity: 1 }], { duration: 450, easing: 'ease-out' });
-  if (page !== 'device') await loaders[page](true);
-  api.set_theme(name);
 }
 
 // ---- charts ----
@@ -265,16 +251,15 @@ const valueLabels = {
   },
 };
 
-// Themes with --c-glow: 1 give lines and bars a soft glow in the battery color.
+// Lines and bars get a soft glow in the battery color.
 const glow = {
   id: 'glow',
   beforeDatasetDraw(chart) {
-    if (!C.glow) return;
     chart.ctx.save();
     chart.ctx.shadowColor = rgba(C.green, 0.55);
     chart.ctx.shadowBlur = 12;
   },
-  afterDatasetDraw(chart) { if (C.glow) chart.ctx.restore(); },
+  afterDatasetDraw(chart) { chart.ctx.restore(); },
 };
 
 function levelPoints(series) {
@@ -616,7 +601,6 @@ async function init() {
   api = window.pywebview.api;
   meta = await api.meta();
   const prefs = await api.prefs();
-  document.documentElement.dataset.theme = prefs.theme;
   loadTheme();
   document.querySelectorAll('i[data-icon]').forEach(el => { el.outerHTML = icon(el.dataset.icon); });
   renderLegends();
@@ -669,8 +653,6 @@ async function init() {
   });
   document.querySelectorAll('#nav button').forEach(b => b.addEventListener('click', () => showPage(b.dataset.page)));
 
-  segmented('seg-theme', [['default', 'Klasik'], ['razer', 'Razer']], setTheme);
-  setSegment('seg-theme', prefs.theme);
   $('pref-top').checked = prefs.on_top;
   $('pref-startup').checked = prefs.startup;
   $('pref-top').addEventListener('change', e => api.set_on_top(e.target.checked));
@@ -678,7 +660,7 @@ async function init() {
 
   await tick();
   await showPage('overview');
-  document.documentElement.classList.remove('booting');  // fades the app in, already in its theme
+  document.documentElement.classList.remove('booting');  // fades the app in once filled
   setInterval(tick, 2000);
 }
 

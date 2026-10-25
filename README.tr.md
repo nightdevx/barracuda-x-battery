@@ -51,7 +51,8 @@ eşdeğer tam şarj döngüsü ve geçen haftayla karşılaştırmalı haftalık
 **Kulaklık ayarları.** EQ ön ayarları, 10 bantlı özel EQ, rahatsız etme ve otomatik kapanma. Her değişiklik
 kulaklıktan geri okunarak doğrulanır.
 
-**İki tema.** Varsayılan koyu tema ve Razer tarzı: siyah, neon yeşil, köşesi kesik paneller.
+**Razer tarzı görünüm.** Siyah zemin, neon yeşil, köşesi kesik paneller, dar ve büyük harfli başlıklar ve segmentli
+pil halkası; Razer donanımlarının yanında yadırganmaz.
 
 </td>
 <td width="45%" valign="top">
@@ -69,10 +70,9 @@ kulaklıktan geri okunarak doğrulanır.
 | <img src="docs/images/history.png" alt="Geçmiş sayfası"> | <img src="docs/images/usage.png" alt="Kullanım sayfası"> | <img src="docs/images/week.png" alt="Haftalık özet sayfası"> |
 | Zaman içinde pil seviyesi, oturumlar, tüketim hızı, pille geçen süre. | Günlük saatler, haftalık tam şarj süresi, pil sağlığı. | Bir hafta, bir öncekiyle karşılaştırmalı. |
 
-| Kulaklık ayarları | Razer tarzı tema | |
-|---|---|---|
-| <img src="docs/images/device.png" alt="Cihaz sayfası"> | <img src="docs/images/razer-overview.png" alt="Razer tarzı temada genel bakış"> | <img src="docs/images/razer-device.png" alt="Razer tarzı temada cihaz sayfası"> |
-| Firmware, alıcı, EQ, rahatsız etme, otomatik kapanma. | Kenar menünün altındaki seçiciyle; hatırlanır. | |
+| Kulaklık ayarları | |
+|---|---|
+| <img src="docs/images/device.png" alt="Cihaz sayfası"> | Firmware, alıcı, EQ ön ayarları, 10 bantlı özel EQ, rahatsız etme ve otomatik kapanma. Her değişiklik kulaklıktan geri okunur; kabul edilmeyen ayar ekranda eski haline döner. |
 
 ## Kurulum
 
@@ -135,8 +135,7 @@ barracuda.py       alıcı çerçeveleri, kulaklık komutları, olay dinleyicisi
 history.py         kayıt, oturumlar, şarj döngüleri, günlük ve haftalık hesaplar
 ui/
   index.html       sayfalar
-  app.css          varsayılan tema ve bileşenler
-  theme-razer.css  Razer tarzı tema
+  app.css          bileşenler ve Razer tarzı görünüm
   app.js           veri, grafikler (Chart.js), animasyonlar, ayarlar
 installer/         Inno Setup betiği
 build.ps1          testler, PyInstaller (klasör), kurulum
@@ -145,7 +144,7 @@ build.ps1          testler, PyInstaller (klasör), kurulum
 Kullanıcı verisi, hepsi `%LOCALAPPDATA%\BarracudaBattery` içinde:
 
 - `history.db` — her okuma için bir satır (zaman, yüzde, şarj)
-- `prefs.json` — tema ve "her zaman üstte"
+- `prefs.json` — "her zaman üstte"
 - `tanilama.txt` — oluşturulduğunda tanılama raporu
 
 ## Geliştirme
